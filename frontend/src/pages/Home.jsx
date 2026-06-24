@@ -65,7 +65,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-
+     
       {/* Destacadas */}
       <section className="home-section container">
         <div className="section-header">
@@ -101,6 +101,6 @@ export default function Home() {
           </div>
         )}
       </section>
-    </div>
+    </div> 
   );
 }
