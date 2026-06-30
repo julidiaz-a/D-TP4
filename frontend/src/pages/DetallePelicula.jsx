@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getPelicula, deletePelicula, createResena, deleteResena, deleteActuacion } from '../api';
 import { useApp } from '../context/AppContext';
 import ConfirmModal from '../components/ConfirmModal';
-import './DetallePelicula.css';
+import '../index.css';
 
 function StarRating({ value, onChange }) {
   const [hover, setHover] = useState(0);

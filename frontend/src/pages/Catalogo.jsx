@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { getPeliculas } from '../api';
 import { useApp } from '../context/AppContext';
 import MovieCard from '../components/MovieCard';
-import './Catalogo.css';
+import '../index.css';
 
 const SORT_OPTIONS = [
   { value: 'calificacion', label: 'Calificación' },

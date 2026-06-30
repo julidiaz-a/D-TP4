@@ -1,5 +1,5 @@
 import { useApp } from '../context/AppContext';
-import './Notification.css';
+import '../index.css';
 
 export default function Notification() {
   const { notification } = useApp();

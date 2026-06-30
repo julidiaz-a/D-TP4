@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getPeliculas } from '../api';
 import MovieCard from '../components/MovieCard';
-import './Home.css';
+import '../index.css';
 
 export default function Home() {
   const [destacadas, setDestacadas] = useState([]);

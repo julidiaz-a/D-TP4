@@ -8,7 +8,7 @@ import {
 } from '../api';
 import ConfirmModal from '../components/ConfirmModal';
 import { Link } from 'react-router-dom';
-import './Admin.css';
+import '../index.css';
 
 function EntityModal({ title, fields, initial, onSave, onClose }) {
   const [form, setForm] = useState(initial || {});

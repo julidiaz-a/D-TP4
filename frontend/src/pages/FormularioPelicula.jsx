@@ -5,7 +5,7 @@ import {
   createActuacion, deleteActuacion,
 } from '../api';
 import { useApp } from '../context/AppContext';
-import '.index.css';
+import '../index.css';
 
 const EMPTY_FORM = {
   titulo: '', sinopsis: '', anio: new Date().getFullYear(),

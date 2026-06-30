@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import '.index.css';
+import '../index.css';
 
 export default function MovieCard({ pelicula }) {
   const { id, titulo, anio, portada_url, calificacion, genero, director } = pelicula;
