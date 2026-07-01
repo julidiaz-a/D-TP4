@@ -11,6 +11,8 @@ app.use(express.json());
 // Rutas disponibles hasta el momento
 app.use('/api/generos', require('./routes/generos'));
 app.use('/api/directores', require('./routes/directores'));
+app.use('/api/peliculas', require('./routes/peliculas'));
+app.use('/api/actores', require('./routes/actores'));
 
 // TODO: agregar rutas de peliculas y actores
 

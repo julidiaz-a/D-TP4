@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getPelicula, deletePelicula, createResena, deleteResena, deleteActuacion } from '../api';
+import { getPelicula, deletePelicula, createResena, updateResena, deleteResena, deleteActuacion } from '../api';
 import { useApp } from '../context/AppContext';
 import ConfirmModal from '../components/ConfirmModal';
 import '../index.css';
@@ -39,6 +39,7 @@ export default function DetallePelicula() {
   const [resenaForm, setResenaForm] = useState({ puntuacion: 8, comentario: '', autor: '' });
   const [submittingResena, setSubmittingResena] = useState(false);
   const [showResenaForm, setShowResenaForm] = useState(false);
+  const [editingResenaId, setEditingResenaId] = useState(null);
 
   const load = async () => {
     try {
@@ -72,15 +73,37 @@ export default function DetallePelicula() {
     }
     setSubmittingResena(true);
     try {
-      await createResena(id, { ...resenaForm, fecha: new Date().toISOString().slice(0, 10) });
-      notify('Reseña agregada');
+      if (editingResenaId) {
+        await updateResena(editingResenaId, resenaForm);
+        notify('Reseña actualizada');
+      } else {
+        await createResena(id, { ...resenaForm, fecha: new Date().toISOString().slice(0, 10) });
+        notify('Reseña agregada');
+      }
       setResenaForm({ puntuacion: 8, comentario: '', autor: '' });
+      setEditingResenaId(null);
       setShowResenaForm(false);
       load();
     } catch (e) {
       notify(e.message, 'error');
     }
     setSubmittingResena(false);
+  };
+
+  const handleStartEditResena = (resena) => {
+    setEditingResenaId(resena.id);
+    setResenaForm({
+      puntuacion: resena.puntuacion,
+      comentario: resena.comentario || '',
+      autor: resena.autor || '',
+    });
+    setShowResenaForm(true);
+  };
+
+  const handleCancelResenaForm = () => {
+    setShowResenaForm(false);
+    setEditingResenaId(null);
+    setResenaForm({ puntuacion: 8, comentario: '', autor: '' });
   };
 
   const handleDeleteResena = async (resenaId) => {
@@ -199,7 +222,10 @@ export default function DetallePelicula() {
               </h2>
               <button
                 className="btn btn-secondary btn-sm"
-                onClick={() => setShowResenaForm(v => !v)}
+                onClick={() => {
+                  if (showResenaForm) handleCancelResenaForm();
+                  else setShowResenaForm(true);
+                }}
               >
                 {showResenaForm ? '✕ Cancelar' : '+ Agregar reseña'}
               </button>
@@ -234,7 +260,7 @@ export default function DetallePelicula() {
                   />
                 </div>
                 <button className="btn btn-primary" type="submit" disabled={submittingResena}>
-                  {submittingResena ? 'Publicando...' : 'Publicar reseña'}
+                  {submittingResena ? 'Guardando...' : editingResenaId ? 'Guardar cambios' : 'Publicar reseña'}
                 </button>
               </form>
             )}
@@ -248,7 +274,13 @@ export default function DetallePelicula() {
                       <span className="resena-score">★ {r.puntuacion}</span>
                       <button
                         className="btn btn-ghost btn-sm resena-del"
+                        onClick={() => handleStartEditResena(r)}
+                        title="Editar reseña"
+                      >✎</button>
+                      <button
+                        className="btn btn-ghost btn-sm resena-del"
                         onClick={() => handleDeleteResena(r.id)}
+                        title="Eliminar reseña"
                       >✕</button>
                     </div>
                     {r.comentario && <p className="resena-comment">{r.comentario}</p>}

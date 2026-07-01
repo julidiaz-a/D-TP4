@@ -43,6 +43,7 @@ export const deleteActor = (id) => request(`/actores/${id}`, { method: 'DELETE' 
 // Reseñas
 export const getResenas = (peliculaId) => request(`/peliculas/${peliculaId}/resenas`);
 export const createResena = (peliculaId, data) => request(`/peliculas/${peliculaId}/resenas`, { method: 'POST', body: JSON.stringify(data) });
+export const updateResena = (id, data) => request(`/peliculas/resenas/${id}`, { method: 'PUT', body: JSON.stringify(data) });
 export const deleteResena = (id) => request(`/peliculas/resenas/${id}`, { method: 'DELETE' });
 
 // Actuaciones

@@ -35,16 +35,15 @@ export default function Home() {
 
   return (
     <div className="home">
-      {/* Hero */}
       <section className="hero">
         <div className="hero-content container">
-          <p className="hero-eyebrow">ARCHIVO CINEMATOGRÁFICO</p>
+          <p className="hero-eyebrow">Las mejores peliculas</p>
           <h1 className="hero-title">
             Cine que<br />
             <span className="hero-title-accent">permanece.</span>
           </h1>
           <p className="hero-subtitle">
-            Una colección curada de las películas más significativas del cine contemporáneo e histórico.
+            Una colección de peliculas.
           </p>
           <form className="hero-search" onSubmit={handleSearch}>
             <div className="hero-search-input-wrap">

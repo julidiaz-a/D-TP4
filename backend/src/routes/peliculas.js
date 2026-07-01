@@ -161,6 +161,29 @@ router.post('/:id/resenas', [
   }
 });
 
+// PUT /api/peliculas/resenas/:id
+router.put('/resenas/:id', [
+  param('id').isInt(),
+  body('puntuacion').optional().isInt({ min: 1, max: 10 }).withMessage('Puntuación debe ser entre 1 y 10'),
+  body('comentario').optional().isString(),
+  body('autor').optional().isString(),
+  validate,
+], async (req, res) => {
+  try {
+    const resena = await Resena.findByPk(req.params.id);
+    if (!resena) return res.status(404).json({ error: 'Reseña no encontrada' });
+    const { puntuacion, comentario, autor } = req.body;
+    await resena.update({
+      ...(puntuacion !== undefined && { puntuacion }),
+      ...(comentario !== undefined && { comentario }),
+      ...(autor !== undefined && { autor }),
+    });
+    res.json(resena);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // DELETE /api/resenas/:id
 router.delete('/resenas/:id', [param('id').isInt(), validate], async (req, res) => {
   try {

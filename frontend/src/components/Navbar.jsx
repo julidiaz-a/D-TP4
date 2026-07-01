@@ -19,7 +19,7 @@ export default function Navbar() {
       <div className="navbar-inner">
         <Link to="/" className="navbar-brand">
           <span className="brand-icon">▣</span>
-          <span className="brand-name">CineVault</span>
+          <span className="brand-name">MovieDo</span>
         </Link>
 
         <div className="navbar-links">
